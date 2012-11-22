@@ -10,26 +10,60 @@ local widget = require( "widget" )
 
 display.setStatusBar(display.HiddenStatusBar)
 
---- add background
-local gameview = display.newImage("gameview.png") 
-gameview:setReferencePoint(display.TopLeftReferencePoint)
-gameview.screenWidth = gameview.width;
-gameview.x = 0
-gameview.y = -200
+local function absX(object)
+    return object.x + object.parent.x
+end
 
---- add tree
-local trees         = display.newImage("trees.png", 0, 150)
-trees.screenWidth   = trees.width
-local trees_2       = display.newImage("trees.png", trees.width, 150)
-trees_2.screenWidth = trees_2.width
+local function createGameview()
+    --- add background
+    gameview = display.newImage("gameview.png") 
+    gameview:setReferencePoint(display.TopLeftReferencePoint) 
+    gameview.screenWidth = gameview.width;
+    gameview.x = 0
+    gameview.y = -200
+    
+    game:insert(gameview)
+end
+
+local function createTrees()
+    --- add tree
+    trees_1             = display.newImage("trees.png", 0, 150)
+    trees_1.screenWidth = trees_1.width
+    trees_2             = display.newImage("trees.png", trees_1.width, 150)
+    trees_2.screenWidth = trees_2.width
+
+    game:insert(trees_1)
+    game:insert(trees_2)
+end
+
+local function createBall()
+    --- add tree
+    balls               = display.newImage("gameview_ball1.png", 40, 150)
+    
+    game:insert(balls)
+end
+
+local function initGame()
+    -- Create master display group (for global "camera" scrolling effect)
+    game = display.newGroup();
+    game.x = 0
+    
+    createGameview()
+    createTrees()
+    createBall()
+    
+end
+
+initGame()
+
 
 -- add button
 local pitchButtonPressed = function( event )
-    Zoom(1)
+    ZoomMap(1)
     
 end
 local pauseButtonPressed = function( event )
-    Zoom(-1)
+    ZoomMap(-1)
     
 end
 
@@ -50,27 +84,26 @@ local function onScreenWidth(object)
     return object.width * object.xScale
 end
 
-local function move(event)
+local function mapControl(event)
+    ForwardMap(1)
+end
+
+local function ballMove(event)
 	
 	local tDelta = event.time - tPrevious
 	tPrevious = event.time
 
 	local xOffset = ( 0.2 * tDelta )
         
-        trees.x   = trees.x - xOffset
-	trees_2.x = trees_2.x - xOffset
+        balls.x = balls.x + xOffset
+        game.x  = game.x - xOffset
         
-        if trees.x < 0 - trees.screenWidth/2 then
-		trees.x   = trees_2.x + trees.screenWidth
-	end
-	if trees_2.x < 0 - trees_2.screenWidth/2 then
-		trees_2.x = trees.x + trees.screenWidth
-	end
+        balls.rotate(balls, 10)
 	
-end        
+end  
 
-Runtime:addEventListener("enterFrame",move)
-
+Runtime:addEventListener("enterFrame",mapControl)
+Runtime:addEventListener("enterFrame",ballMove)
 
 
 
@@ -87,18 +120,28 @@ local function zoomObject(object, scale)
     object.screenWidth = object.width * object.xScale
 end
 
-function Zoom(ratio)
+function ZoomMap(ratio)
     -- Zoom object in Game
     zoomObject(gameview, gameviewScale*ratio)
-    zoomObject(trees,    treeScale*ratio)
+    zoomObject(trees_1,  treeScale*ratio)
     zoomObject(trees_2,  treeScale*ratio)
     
     
-    print(trees.screenWidth)
     -- Recalc positon of parallax
-    if (trees.x < trees_2.x) then
-        trees_2.x = trees.x + trees.screenWidth
+    if (trees_1.x < trees_2.x) then
+        trees_2.x = trees_1.x + trees_1.screenWidth
     else
-        trees.x   = trees_2.x + trees.screenWidth
+        trees_1.x = trees_2.x + trees_1.screenWidth
     end
+end
+
+function ForwardMap(speed)
+    -- check map in screen of device
+    if (absX(trees_1) < 0 - trees_1.screenWidth /2) then
+        trees_1.x = trees_2.x + trees_1.screenWidth
+    end
+    if (absX(trees_2) < 0 - trees_1.screenWidth /2) then
+        trees_2.x = trees_1.x + trees_1.screenWidth
+    end
+    
 end
