@@ -1,4 +1,4 @@
-require "CiderDebugger";-----------------------------------------------------------------------------------------
+--require "CiderDebugger";-----------------------------------------------------------------------------------------
 --
 -- main.lua
 --
@@ -8,5 +8,9 @@ require "CiderDebugger";--------------------------------------------------------
 
  local physics = require ("game.physics").instance()
  physics.start()
+
 require "map"
+
 require "ball"
+ require "game.controller".init()
+require "test"

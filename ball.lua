@@ -3,10 +3,10 @@ local function createBall()
     --- add ball
     local physics = require ("game.physics").instance()
     balls    = require ("game.ball").instance()  
-    balls.x = 100
-    balls.y = 320
-    
-    balls:applyForce ( 10,-130,balls.x,balls.y)    
+    balls.x = 200
+    balls.y = 0
+    print(balls.x)
+    balls:applyForce ( 0,0,balls.x,balls.y)    
          
     x0 = balls.x
     y0 = balls.y
