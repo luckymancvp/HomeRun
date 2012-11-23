@@ -13,7 +13,7 @@ local function createBall()
     g = 10
     v0 = 1
     alpha = 45
-    --game:insert(balls)
+    game:insert(balls)
     
 end
 
