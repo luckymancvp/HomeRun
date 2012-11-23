@@ -28,13 +28,6 @@ local function createTrees()
     game:insert(treesGroup)
 end
 
-local function createBall()
-    --- add ball
-    balls               = display.newImage("images/gameview_ball1.png", 40, 150)
-    
-    game:insert(balls)
-end
-
 local function createItem()
     bar = display.newImage("images/bar.png", 20, 80)
     
@@ -47,8 +40,7 @@ local function initGame()
     
     createGameview()
     createTrees()
-    createBall()
-    createItem()
+    --createItem()
     
 end
 
@@ -76,8 +68,6 @@ local pauseButton = widget.newButton{
 }
 pauseButton.x = 450; pauseButton.y = 270;
 
-local tPrevious = system.getTimer()
-
 local function onScreenWidth(object)
     return object.width * object.xScale
 end
@@ -86,27 +76,7 @@ local function mapControl(event)
     ForwardMap(1)
 end
 
-local function ballMove(event)
-	
-	local tDelta = event.time - tPrevious
-	tPrevious = event.time
-
-	local xOffset = ( 0.2 * tDelta )
-        
-        balls.x = balls.x + xOffset
-        game.x  = game.x - xOffset
-        
-        gameviewGroup.x = gameviewGroup.x + xOffset*5/6
-        
-        balls.rotate(balls, 10)
-	
-end  
-
 --Runtime:addEventListener("enterFrame",mapControl)
-Runtime:addEventListener("enterFrame",ballMove)
-
-
-
 --- Declare function for maps
 
 -- scale property
