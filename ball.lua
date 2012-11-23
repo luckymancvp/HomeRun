@@ -1,13 +1,20 @@
 
 local function createBall()
     --- add ball
-    balls               = display.newImage("images/gameview_ball1.png", 40, 150)
+    local physics = require ("game.physics").instance()
+    balls    = require ("game.ball").instance()  
+    balls.x = 100
+    balls.y = 320
+    
+    balls:applyForce ( 10,-130,balls.x,balls.y)    
+         
     x0 = balls.x
     y0 = balls.y
     g = 10
     v0 = 1
     alpha = 45
-    game:insert(balls)
+    --game:insert(balls)
+    
 end
 
 
@@ -32,5 +39,5 @@ local function ballMove(event)
 	
 end  
 
-Runtime:addEventListener("enterFrame",ballMove)
+--Runtime:addEventListener("enterFrame",ballMove)
 
