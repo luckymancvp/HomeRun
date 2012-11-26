@@ -22,7 +22,8 @@ local function onTouch(event)
 		if ball.state == state.throwing then
 			--danh bong khi bong duoc nem
 			print "danh cai nao"
-			ball:applyForce( 200, -100, ball.x, ball.y )
+			controller.hitBall(200,-100,ball.x,ball.y)
+			--ball:applyForce( 200, -100, ball.x, ball.y )
 			ball.state = state.flying
 		else
 			-- chua nem danh the deo nao duoc
