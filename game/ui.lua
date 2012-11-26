@@ -5,14 +5,15 @@ local controller = require("game.controller")
 
 local ftLabel,scoreLabel,comboLabel,outLabel
 local arrayBall
-
+local pauseScreen 
 function initUI ()
 	local localGroup =  display.newGroup()
+	pauseScreen= nil
+	
 	ftLabel = display.newText("", 240, 160, native.systemFont, 25)
 	ftLabel:setTextColor(255, 255, 255)
 	ftLabel:setReferencePoint(display.CenterReferencePoint);
 	ftLabel.text = ""
-	
 	localGroup:insert(ftLabel)
 	
 	
@@ -20,7 +21,6 @@ function initUI ()
 	scoreLabel:setTextColor(255, 255, 255)
 	scoreLabel:setReferencePoint(display.CenterReferencePoint);
 	--scoreLabel.text = "123FT"
-	
 	localGroup:insert(scoreLabel)
 	
 	
@@ -28,7 +28,6 @@ function initUI ()
 	comboLabel:setTextColor(255, 0, 0)
 	comboLabel:setReferencePoint(display.CenterReferencePoint);
 	comboLabel.text = ""
-	
 	localGroup:insert(comboLabel)
 	
 	
@@ -36,7 +35,6 @@ function initUI ()
 	outLabel:setTextColor(255, 255, 255)
 	outLabel:setReferencePoint(display.CenterReferencePoint);
 	outLabel.text = ""
-	
 	localGroup:insert(outLabel)
 	
 	
@@ -64,18 +62,19 @@ function initUI ()
 	
 	
 	local function startButtonPressed(event)
-		
 		controller.startGame()
 		return true
 	end
+	
 	local start = widget.newButton{
 		default = "images/gameview_pause.png",
 		over = "images/gameview_pause.png",
 		onPress = startButtonPressed
 	}
 	start.x = 100; start.y = 200;
-	
 	localGroup:insert(start)
+	
+	
 	return localGroup
 end
 
@@ -109,4 +108,19 @@ function updateRemainBall(n)
 	if n >=1 and n<=3 then
 		arrayBall:remove(n)
 	end
+end
+
+--create pause screen
+
+function pauseGame()
+	pauseScreen = display.newGroup()
+	 local screenCap = display.captureScreen(false) --dont save to album
+    pauseScreen:insert(screenCap)
+    
+    
+end
+
+--resume game remove pause screen
+function resumeGame()
+	
 end
