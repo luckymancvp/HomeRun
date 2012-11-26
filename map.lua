@@ -1,3 +1,5 @@
+module (...,package.seeall)
+
 local widget = require( "widget" )
 
 display.setStatusBar(display.HiddenStatusBar)
@@ -74,10 +76,6 @@ local function onScreenWidth(object)
     return object.width * object.xScale
 end
 
-local function mapControl(event)
-    ForwardMap(1)
-end
-
 --Runtime:addEventListener("enterFrame",mapControl)
 --- Declare function for maps
 
@@ -109,24 +107,6 @@ function ZoomMapTo(ratio)
     zoomObjectTo(gameviewGroup, ratio)
 end
 
-------------------------- Map Control function ---------------------------------
-
-local isFollowBalls = false -- Map state
-
-function resetMap()
-    -- Reset map to start position
-    game.x = 0; gameviewGroup.x = 0;
-    game.y = 0; gameviewGroup.y = 0;
-end
-
-function setMapFollowBalls(status)
-    if (status == true) then
-        Runtime:addEventListener("enterFrame",mapControl)
-    else
-        Runtime:removeEventListener("enterFrame", mapControl)
-    end
-end
-
 ------------------------- Map follow balls Control function --------------------
 
 local balls    = require ("game.ball").instance() 
@@ -139,7 +119,6 @@ local bgY     = 30   -- distance offset of background
 local previousX = 0
 
 local function mapControl(event)
-    
     
     -- Parse 1
     if (balls.y < 320) and (balls.y >= markedY) then
@@ -174,4 +153,22 @@ local function mapControl(event)
     
     -- Update previous position of balls
     previousX = balls.x
+end
+
+------------------------- Map Control function ---------------------------------
+
+local isFollowBalls = false -- Map state
+
+function resetMap()
+    -- Reset map to start position
+    game.x = 0; gameviewGroup.x = 0;
+    game.y = 0; gameviewGroup.y = 0;
+end
+
+function setMapFollowBalls(status)
+    if (status == true) then
+        Runtime:addEventListener("enterFrame",mapControl)
+    else
+        Runtime:removeEventListener("enterFrame", mapControl)
+    end
 end
