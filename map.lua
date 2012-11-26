@@ -10,7 +10,7 @@ local function createGameview()
     --- add background
     gameviewGroup = display.newGroup()
     for i = 0, 1, 1 do
-        local gameview = display.newImage("images/gameview.png", i*512, -200)
+        local gameview = display.newImage("images/gameview.png", i*512, -190)
         gameviewGroup:insert(gameview)
     end
     
@@ -39,7 +39,7 @@ local function initGame()
     game = display.newGroup();
     
     createGameview()
-    createTrees()
+    --createTrees()
     --createItem()
     
 end
@@ -61,12 +61,12 @@ local pitchButton = widget.newButton{
 	default = "images/gameview_pitch.png",
 	onPress = pitchButtonPressed
 }
-pitchButton.x = 40;pitchButton.y = 270
+pitchButton.x = 40;pitchButton.y = 280
 local pauseButton = widget.newButton{
 	default = "images/gameview_pause.png",
 	onPress = pauseButtonPressed
 }
-pauseButton.x = 450; pauseButton.y = 270;
+pauseButton.x = 450; pauseButton.y = 280;
 
 local function onScreenWidth(object)
     return object.width * object.xScale
@@ -89,9 +89,21 @@ local function zoomObject(object, scale)
     
 end
 
+local function zoomObjectTo(object, scale)
+    object.xScale = scale;
+    object.yScale = scale;
+    
+end
+
 function ZoomMap(ratio)
     -- Zoom object in Game
     zoomObject(treesGroup,    treeScale * ratio)
     zoomObject(gameviewGroup, gameviewScale* ratio)
+end
+
+function ZoomMapTo(ratio)
+    -- Zoom object in Game to specific ratio
+    --zoomObjectTo(treesGroup,    ratio)
+    zoomObjectTo(gameviewGroup, ratio)
 end
 
