@@ -65,7 +65,7 @@ function createBall()
   borderCollisionFilter = { categoryBits = 2, maskBits = 15 } -- collides with (8 & 4 & 2 & 1) only
   borderBodyElement = {  density=0.3,friction=0.1,bounce = 1, radius=15.0, filter=borderCollisionFilter }
   
-  physics.addBody( ball, "dynamic", borderBodyElement )
+  physics.addBody( ball, "static", borderBodyElement )
   ball:addEventListener("touch",onTouch)
   ball:addEventListener( "collision", onLocalCollision )
   return ball
