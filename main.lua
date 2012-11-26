@@ -12,5 +12,10 @@
 require "map"
 
 require "ball"
- require "game.controller".init()
+require "game.controller".init()
+local ui = require ("game.ui")
+ui.initUI()
+ui.setComboText(3)
+ui.setFtText(323)
+ui.setOutText()
 require "test"

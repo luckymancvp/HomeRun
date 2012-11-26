@@ -1,6 +1,4 @@
 module(...,package.seeall)
-local widget = require( "widget" )
-
 
 function createGround()
   local physics = require("game.physics").instance()
@@ -23,6 +21,9 @@ function createGround()
 --  borderBottom.y = 100
 	localGroup:insert(borderBottom)
   
+    
+  
+	--localGroup:insert(ftLabel)
   return localGroup
 
 end

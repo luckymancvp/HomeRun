@@ -5,11 +5,14 @@ module (...,package.seeall)
 local ball 
 local physics 
 local state
+local ui 
+local data
 function init()
 	 ball = require ("game.ball").instance()
  	physics = require ("game.physics").instance()
  	state = require ("game.ballState")
- 	
+ 	ui = require ("game.ui")
+ 	data = require ("game.data")
  	
 end
 
@@ -19,7 +22,7 @@ function throwBall()
 	ball.x = 490
     ball.y = 50
     ball.bodyType = "dynamic"
-    ball:applyForce(-90, 0,ball.x, ball.y )
+    ball:applyForce(-80, 0,ball.x, ball.y )
 	ball.state = state.throwing
 	
 end
@@ -38,14 +41,15 @@ function collideGround()
 	if ball.state == state.throwing then
 	-- danh truot
 		print "collideGround : danh truot"
+		 calculateScore()
 	elseif ball.state == state.flying then
 	-- danh trung bong tinh khoang cach danh duoc	
 	  print "collideGround : danh trung"
+	  calculateScore()
 	else
 	end
-	ball.state = state.stoping
-	timer.performWithDelay(1000, reHit)
-
+	
+	
 
 end
 
@@ -58,6 +62,54 @@ function reHit()
 	ball.state = state.standing
 	throwBall()
 end	
+
+
+--check ball  position 
+function calculateScore()
+	
+	if data.remainBall<=0  then
+		return
+	end
+	if ball.x <= data.xOutLine then
+		--bong bay ra ngoai  giam so bong tru diem, giam so combo ve -1
+		-- giam remainball
+		data.remainBall = data.remainBall -1
+		print (data.remainBall)
+		--giam combo ve -1
+		data.currentCombo = -1
+		--tru diem
+		
+		-- thong bao out ra man hinh
+		ui.setOutText()
+		--  update so bong con lai
+		ui.updateRemainBall(data.remainBall)
+	else
+	-- bong hop le tinh diem
+	--tinh khoang cach
+		local ft = math.round( ball.x )
+		
+		--hien khoang cach dat duoc
+		ui.setFtText(ft)
+		--tang so combo
+		data.currentCombo = data.currentCombo +1
+		--neu so combo >0 hien so com bo
+		if data.currentCombo >0 then
+			ui.setComboText(data.currentCombo)
+		end
+		-- turn score
+		local turnScore = ft *(1 + data.currentCombo /10)
+		
+		--cong diem tong so diem
+		data.score = data.score + math.round( turnScore)
+		--update diem 
+		ui.setScoreText(data.score)
+		
+	end
+	if data.remainBall>0  then
+		ball.state = state.stoping
+		timer.performWithDelay(1000, reHit)
+	end
+end
 --update game state 
 --none = 0
 --standing = 1

@@ -15,7 +15,7 @@ local function createGameview()
     end
     
     game:insert(gameviewGroup)
-    local ground = require ("game.background").createGround()
+    local ground = require ("game.ground").createGround()
     game:insert(ground)
 end
 
