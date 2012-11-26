@@ -1,15 +1,17 @@
 module(...,package.seeall)
 local widget = require( "widget" )
 
+local controller = require("game.controller")
+
 local ftLabel,scoreLabel,comboLabel,outLabel
 local arrayBall
 
 function initUI ()
 	local localGroup =  display.newGroup()
-	ftLabel = display.newText("0", 240, 160, native.systemFont, 25)
+	ftLabel = display.newText("", 240, 160, native.systemFont, 25)
 	ftLabel:setTextColor(255, 255, 255)
 	ftLabel:setReferencePoint(display.CenterReferencePoint);
-	ftLabel.text = "123FT"
+	ftLabel.text = ""
 	
 	localGroup:insert(ftLabel)
 	
@@ -25,7 +27,7 @@ function initUI ()
 	comboLabel = display.newText("5 combo!!", 300,100, native.systemFont, 18)
 	comboLabel:setTextColor(255, 0, 0)
 	comboLabel:setReferencePoint(display.CenterReferencePoint);
-	--scoreLabel.text = "123FT"
+	comboLabel.text = ""
 	
 	localGroup:insert(comboLabel)
 	
@@ -33,7 +35,7 @@ function initUI ()
 	outLabel = display.newText("Out", 240, 160, native.systemFont, 25)
 	outLabel:setTextColor(255, 255, 255)
 	outLabel:setReferencePoint(display.CenterReferencePoint);
-	outLabel.text = "Out"
+	outLabel.text = ""
 	
 	localGroup:insert(outLabel)
 	
@@ -59,6 +61,21 @@ function initUI ()
 	arrayBall.x = 30
 	arrayBall.y = 20
 	localGroup:insert(arrayBall)
+	
+	
+	local function startButtonPressed(event)
+		
+		controller.startGame()
+		return true
+	end
+	local start = widget.newButton{
+		default = "images/gameview_pause.png",
+		over = "images/gameview_pause.png",
+		onPress = startButtonPressed
+	}
+	start.x = 100; start.y = 200;
+	
+	localGroup:insert(start)
 	return localGroup
 end
 

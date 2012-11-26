@@ -15,7 +15,13 @@ function init()
  	data = require ("game.data")
  	
 end
+--start game 
 
+function startGame()
+	ball.state = state.standing
+	data.remainBall = 10
+	throwBall()
+end
 -- nem bong 
 function throwBall()
 	ball.bodyType = "static"
