@@ -18,26 +18,65 @@ local function createBall()
 end
 
 
+markedY = 70   -- Start zoom effect
+minY    = 25   -- keep ball be not smaller when its y axis < minY
+
+bgY     = 30   -- distance offset of background
+
+previousX = 0
+
 createBall()
-
-local tPrevious = system.getTimer()
-local function ballMove(event)
-	
-	local tDelta = event.time - tPrevious
-	tPrevious = event.time
-
-	local xOffset = ( 0.2 * tDelta )
+local function mapControl(event)
+    
+    
+    balls:rotate(40)
+ 
+    -- Parse 1
+    if (balls.y < 320) and (balls.y >= markedY) then
+        -- Let ball move itself
+    end
+    
+    -- Parse 2
+    if (balls.y < markedY) and (balls.y >= minY) then
+        -- start move background and scale ball
         
-        t = 1
-        balls.x = x0 + v0*math.cos(alpha)*t
-        balls.y = v0*math.sin(alpha)*t-g*t*t/2 + y0
-        --game.x  = game.x - xOffset
-        
-        --gameviewGroup.x = gameviewGroup.x + xOffset*5/6
-        
-        balls.rotate(balls, 10)
-	
-end  
+        game.x = game.x + (previousX - balls.x)
+        gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*3
 
---Runtime:addEventListener("enterFrame",ballMove)
+        gameviewGroup.y = (markedY - balls.y) / (markedY - minY) * bgY - game.y
+        
+        -- Zoom effect
+        scaleRatio = (balls.y - markedY) / (minY - markedY) * 0.5
+        balls.xScale = 1 - scaleRatio
+        balls.yScale = 1 - scaleRatio
+    end
+    
+    -- Parse 3
+    if (balls.y < minY) then 
+        -- keep balls in screen
+        
+        game.x = game.x + (previousX - balls.x)
+        game.y = minY - balls.y    -- keep balls in screen
+        
+        gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*3
+        gameviewGroup.y = bgY - game.y
+    end
+    
+    -- Update previous position of balls
+    previousX = balls.x
+end
 
+Runtime:addEventListener("enterFrame",mapControl)
+
+
+local function mapControlQuan(event)
+    game.x = 120 - balls.x
+    game.y = 120 - balls.y
+    
+    gameviewGroup.x = 0 - game.x
+    gameviewGroup.y = 0 - game.y
+    
+    x0 = balls.x
+    y0 = balls.y
+end
+--Runtime:addEventListener("enterFrame",mapControlQuan)
