@@ -11,7 +11,7 @@ end
 local function createGameview()
     --- add background
     gameviewGroup = display.newGroup()
-    for i = 0, 1, 1 do
+    for i = 0, 50, 1 do
         local gameview = display.newImage("images/gameview.png", i*512, -190)
         gameviewGroup:insert(gameview)
     end
@@ -42,9 +42,14 @@ local function initGame()
     -- Create master display group (for global "camera" scrolling effect)
     game = display.newGroup();
     
+    
     createGameview()
     --createTrees()
     --createItem()
+    
+    
+    local balls    = require ("game.ball").instance()
+    game:insert(balls)
     
 end
 
@@ -116,21 +121,27 @@ local minY    = 25   -- keep ball be not smaller when its y axis < minY
 
 local bgY     = 30   -- distance offset of background
 
+local boundRightX = 400
+
 local previousX = 0
 
 local function mapControl(event)
-    
     -- Parse 1
     if (balls.y < 320) and (balls.y >= markedY) then
         -- Let ball move itself
+        -- Check bound
+        if ( balls.x >= boundRightX) then
+            game.x = game.x + (previousX - balls.x)
+        end
     end
     
     -- Parse 2
     if (balls.y < markedY) and (balls.y >= minY) then
         -- start move background and scale ball
+        print("Enter parse 2")
         
         game.x = game.x + (previousX - balls.x)
-        gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*3
+        gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*2
 
         gameviewGroup.y = (markedY - balls.y) / (markedY - minY) * bgY - game.y
         
@@ -143,14 +154,13 @@ local function mapControl(event)
     -- Parse 3
     if (balls.y < minY) then 
         -- keep balls in screen
-        
+        print("Enter parse 3")
         game.x = game.x + (previousX - balls.x)
         game.y = minY - balls.y    -- keep balls in screen
         
         gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*3
         gameviewGroup.y = bgY - game.y
-    end
-    
+    end  
     -- Update previous position of balls
     previousX = balls.x
 end
