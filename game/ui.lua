@@ -59,6 +59,22 @@ function initUI ()
 	arrayBall.x = 30
 	arrayBall.y = 20
 	localGroup:insert(arrayBall)
+	
+	
+	local function startButtonPressed(event)
+		ball.state = state.standing
+		data.remainBall = 10
+		controller.throwBall()
+		return true
+	end
+	local start = widget.newButton{
+		default = "images/gameview_pause.png",
+		over = "images/gameview_pause.png",
+		onPress = startButtonPressed
+	}
+	start.x = 100; start.y = 200;
+	
+	localGroup:insert(start)
 	return localGroup
 end
 
