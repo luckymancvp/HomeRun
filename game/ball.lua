@@ -2,7 +2,7 @@ module(...,package.seeall)
 
 local ball = nil
 local state = require("game.ballState")
---local controller = require ("game.controller").instance()
+local controller = require ("game.controller")
 
 function  instance()
 	print ("ball instance")
@@ -14,10 +14,20 @@ end
 
 local function onTouch(event)
 	print (event.phase)
+	
 	local physics = require("game.physics").instance()
 	local ball = event.target
 	--if event.phase == "began" then
-		ball:applyForce( 5, 2, ball.x, ball.y )
+		print ("ontouch : state :"..ball.state)
+		if ball.state == state.throwing then
+			--danh bong khi bong duoc nem
+			print "danh cai nao"
+			ball:applyForce( 200, -100, ball.x, ball.y )
+			ball.state = state.flying
+		else
+			-- chua nem danh the deo nao duoc
+			print "chua nem danh the deo nao duoc"
+		end
 	--end
 	
 	return true
@@ -32,13 +42,10 @@ local function onLocalCollision(  event )
                 print( target.name .. ": collision began with " .. event.other.name )
                 if objname == "flyBall" then
                 	
-                elseif objname == "round" then
-                
+                elseif objname == "ground" then
+                  controller.collideGround()
                 end
-                
-                 
-                	
- 
+
         elseif ( event.phase == "ended" ) then
  
                 print( target.name .. ": collision ended with " .. event.other.name )
@@ -47,9 +54,8 @@ local function onLocalCollision(  event )
 end
  
 
-
 function createBall()
-	print ("create ball")
+  print ("create ball")
   local physics = require("game.physics").instance()
   local ball = display.newImageRect("images/gameview_ball1.png", 30 , 30)
   ball.name = "ball"
