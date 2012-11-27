@@ -1,6 +1,7 @@
 module(...,package.seeall)
-local widget = require( "widget" )
 
+local widget = require( "widget" )
+local ui = require("ui")
 local controller = require("game.controller")
 
 local ftLabel,scoreLabel,comboLabel,outLabel
@@ -10,15 +11,16 @@ function initUI ()
 	local localGroup =  display.newGroup()
 	pauseScreen= nil
 	
-	ftLabel = display.newText("", 240, 160, native.systemFont, 25)
-	ftLabel:setTextColor(255, 255, 255)
+	
+	ftLabel=display.newText("", 240, 160, native.systemFont, 25)
+	ftLabel:setTextColor(255, 255, 254)
 	ftLabel:setReferencePoint(display.CenterReferencePoint);
 	ftLabel.text = ""
 	localGroup:insert(ftLabel)
 	
-	
+
 	scoreLabel = display.newText("0", 240, 3, native.systemFont, 25)
-	scoreLabel:setTextColor(255, 255, 255)
+	scoreLabel:setTextColor(255, 255, 254)
 	scoreLabel:setReferencePoint(display.CenterReferencePoint);
 	--scoreLabel.text = "123FT"
 	localGroup:insert(scoreLabel)
@@ -32,7 +34,7 @@ function initUI ()
 	
 	
 	outLabel = display.newText("Out", 240, 160, native.systemFont, 25)
-	outLabel:setTextColor(255, 255, 255)
+	outLabel:setTextColor(255, 255, 254)
 	outLabel:setReferencePoint(display.CenterReferencePoint);
 	outLabel.text = ""
 	localGroup:insert(outLabel)
@@ -63,17 +65,41 @@ function initUI ()
 	
 	local function startButtonPressed(event)
 		controller.startGame()
+		event.target:removeSelf()
 		return true
 	end
 	
 	local start = widget.newButton{
-		default = "images/gameview_pause.png",
-		over = "images/gameview_pause.png",
+		default = "images/title_start_game.png",
+		over = "images/title_start_game_down.png",
 		onPress = startButtonPressed
 	}
 	start.x = 100; start.y = 200;
 	localGroup:insert(start)
 	
+	local function pauseButtonPressed(event)
+		controller.pauseGame()
+		return true
+	end
+
+	local pauseBtt = widget.newButton{
+		default = "images/gameview_pause.png",
+		over = "images/gameview_pause_down.png",
+		onPress = pauseButtonPressed
+	}
+	pauseBtt.x = 400; pauseBtt.y = 200;
+	localGroup:insert(pauseBtt)
+
+	local pauseBtt1 = widget.newButton{
+		width=0,
+		 height=0,
+	default = "images/gameview_pause.png",
+		--over = "images/gameview_pause_down.png",
+		--onPress = pauseButtonPressed
+	}
+	pauseBtt1.x = 100; pauseBtt1.y = 300;
+	localGroup:insert(pauseBtt1)
+
 	
 	return localGroup
 end
@@ -113,14 +139,49 @@ end
 --create pause screen
 
 function pauseGame()
-	pauseScreen = display.newGroup()
+	 pauseScreen = display.newGroup()
 	 local screenCap = display.captureScreen(false) --dont save to album
-    pauseScreen:insert(screenCap)
+     pauseScreen:insert(screenCap)
     
+     local bound = display.newRect( 10, 199, 480, 320 )
+     bound:setFillColor( 255, 1, 1, 1)		-- make 
+     pauseScreen:insert(bound)
+     
+     local function mainMenuButtonPressed(event)
+		if event.phase == "release" then
+			controller.resumeGame()
+		end
+		return true
+	end
+	
+	local mainMenu = widget.newButton{
+		default = "images/pauseview_main.png",
+		over = "images/pauseview_main_down.png",
+		onEvent = mainMenuButtonPressed
+	}
+	mainMenu.x = 240; mainMenu.y = 140;
+	pauseScreen:insert(mainMenu)
+	
+	local function resumeButtonPressed(event)
+		--print (event.phase)
+		if event.phase == "release" then
+			controller.resumeGame()
+		end
+		return true
+	end
+	
+	local resumeBtt = widget.newButton{
+		default = "images/pauseview_resume.png",
+		over = "images/pauseview_resume_down.png",
+		onEvent = resumeButtonPressed
+	}
+	resumeBtt.x = 240; resumeBtt.y = 200;
+	pauseScreen:insert(resumeBtt)
     
 end
 
 --resume game remove pause screen
 function resumeGame()
-	
+	pauseScreen:removeSelf()
+	pauseScreen = nil
 end

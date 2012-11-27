@@ -1,4 +1,4 @@
-require "CiderDebugger";-----------------------------------------------------------------------------------------
+--require "CiderDebugger";-----------------------------------------------------------------------------------------
 --
 -- main.lua
 --
@@ -13,5 +13,6 @@ require "map"
 
 require "game.controller".init()
 local ui = require ("game.ui")
-ui.initUI()
+local uiview =ui.initUI()
 
+	
