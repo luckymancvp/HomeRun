@@ -36,7 +36,7 @@ local function startButtonPressed(event)
 ]]--
 local function pressBack (event)
 if event.phase == "ended" then
-director:changeScene ("gameview")
+director:changeScene ("gameview","downFlip")
 end
 end
 

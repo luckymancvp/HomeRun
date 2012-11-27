@@ -207,7 +207,7 @@ function pauseGame()
      
      local function mainMenuButtonPressed(event)
 		if event.phase == "release" then
-			controller.resumeGame()
+			controller.gotoMainMenu()
 		end
 		return true
 	end
