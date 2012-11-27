@@ -8,7 +8,9 @@ local state
 local ui 
 local data
 local map
-local _ratio = 5
+local _ratio = 10
+local maxForceX = 800
+local maxForceY = 800
 function init()
 	 ball = require ("game.ball").instance()
  	physics = require ("game.physics").instance()
@@ -59,9 +61,19 @@ function hitBall(pointX,pointY)
 	print(endP)
 	local forceX  = (pointX - endP[1].x)*_ratio
 	local forceY  = (pointY - endP[1].y)*_ratio
+	if math.abs(forceX)>data.MAXFORCEX then
+		forceX = data.MAXFORCEX*forceX/Math.abs(forceX)
+		forceY = forceY*data.MAXFORCEX/Math.abs(forceX)
+	end
+	 if math.abs(forceY)>data.MAXFORCEY then
+		forceY = data.MAXFORCEY*forceY/Math.abs(forceY)
+		forceX = forceX*data.MAXFORCEY/Math.abs(forceY)
+	end
+	pointX = pointX + (ball.x -pointX) /3
+	pointY = pointY + (ball.y - pointY)/3
 		print("end point     "..forceX.."      "..forceY.."       "..endP[1].x)
 	 ball:applyForce(forceX, forceY,pointX, pointY )
-         ball.state = state.flying
+      ball.state = state.flying
          
          
 	map.setMapFollowBalls(true)

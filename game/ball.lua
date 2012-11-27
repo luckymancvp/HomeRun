@@ -16,7 +16,7 @@ local function onTouch(event)
 	print (event.phase)
 	print("jsdhfkdsjfkjdfk")
 	local physics = require("game.physics").instance()
-	local ball = event.target
+	--local ball = event.target
 	--if event.phase == "began" then
 		print ("ontouch : state :"..ball.state)
 		if ball.state == state.throwing then
@@ -61,14 +61,22 @@ function createBall()
   local ball = display.newImageRect("images/gameview_ball1.png", 30 , 30)
   ball.name = "ball"
   ball.state = state.none
-
+  ball.follow = display.newImageRect("images/gameview_ball1.png", 45 , 45)
+  ball.follow.alpha = 0.01
    
   borderCollisionFilter = { categoryBits = 2, maskBits = 15 } -- collides with (8 & 4 & 2 & 1) only
-  borderBodyElement = {  density=0.3,friction=0.1,bounce = 1, radius=15.0, filter=borderCollisionFilter }
+  borderBodyElement = {  density=0.3,friction=0.1,bounce = 1, radius=15, filter=borderCollisionFilter }
   
   physics.addBody( ball, "static", borderBodyElement )
-  ball:addEventListener("touch",onTouch)
+  
+  local function  onEnter(event)
+  	
+  	ball.follow.x = ball.x
+  	ball.follow.y = ball.y
+  end
+  ball.follow:addEventListener("touch",onTouch)
   ball:addEventListener( "collision", onLocalCollision )
+  Runtime:addEventListener("enterFrame",onEnter)
   return ball
 
 end
