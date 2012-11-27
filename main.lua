@@ -14,5 +14,4 @@ require "map"
 require "game.controller".init()
 local ui = require ("game.ui")
 local uiview =ui.initUI()
-
 	

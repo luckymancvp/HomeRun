@@ -24,6 +24,7 @@ end
 function startGame()
 	ball.state = state.standing
 	data.remainBall = 10
+	ui.resetRemainBall()
 	throwBall()
 end
 
@@ -39,6 +40,17 @@ end
 function resumeGame()
 	physics.start()
 	ui.resumeGame()
+end
+
+--goto main menu
+function  gotoMainMenu()
+	
+end
+
+--retry game
+
+function retryGame()
+	startGame()
 end
 -- nem bong 
 function throwBall()
@@ -101,6 +113,9 @@ end
 function calculateScore()
 	
 	if data.remainBall<=0  then
+		
+		print ("ket thuc")
+		ui.gameResult(data.score,data.maxDistance)
 		return
 	end
 	if ball.x <= data.xOutLine then
@@ -120,7 +135,9 @@ function calculateScore()
 	-- bong hop le tinh diem
 	--tinh khoang cach
 		local ft = math.round( ball.x )
-		
+		if ft > data.maxDistance then
+			data.maxDistance = ft
+		end
 		--hien khoang cach dat duoc
 		ui.setFtText(ft)
 		--tang so combo
