@@ -13,6 +13,7 @@ local director = require ("director")
  physics.start()
 
 
+
 local mainGroup = display.newGroup()
 --> Creates a main group
 

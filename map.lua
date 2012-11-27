@@ -17,6 +17,8 @@ local function createGameview()
     end
     
     game:insert(gameviewGroup)
+    
+    -- add physic ground
     local ground = require ("game.ground").createGround()
     game:insert(ground)
 end
@@ -24,36 +26,57 @@ end
 local function createTrees()
     --- add tree
     treesGroup = display.newGroup()
-    for i = 0, 5, 1 do
-         local tree = display.newImage("images/trees.png", 512 * i, 150)
+    for i = 0, 50, 1 do
+         local tree = display.newImage("images/trees.png", 512 * i, 0)
          treesGroup:insert(tree)
     end
+    
+    treesGroup:setReferencePoint(display.BottomLeftReferencePoint)
+    treesGroup.y = 320
     
     game:insert(treesGroup)
 end
 
 local function createItem()
-    bar = display.newImage("images/bar.png", 20, 80)
+    -- add item
+    itemsGroup = display.newGroup()
     
-    game:insert(bar)
+    itemDatas = {
+        { image = "images/bar.png", x = 500},
+        { image = "images/bus.png", x = 600},
+        { image = "images/car1.png", x = 800},
+        { image = "images/car2.png", x = 1000},
+    }
+    
+    for key, item in pairs(itemDatas) do
+        local newItem = display.newImage(item["image"], item["x"], 320)
+        newItem:setReferencePoint(display.BottomLeftReferencePoint)
+        itemsGroup:insert(newItem)
+        print(newItem.y)
+    end
+    
+    
+    itemsGroup:setReferencePoint(display.BottomLeftReferencePoint)
+    itemsGroup.y = 320
+    game:insert(itemsGroup)
 end
 
-local function initGame()
+function initGame()
     -- Create master display group (for global "camera" scrolling effect)
     game = display.newGroup();
     
     
     createGameview()
     createTrees()
-    --createItem()
+    createItem()
     
     
     local balls    = require ("game.ball").instance()
     game:insert(balls)
     
+    return game
+    
 end
-
-initGame()
 
 ------------------------- Map follow balls Control function --------------------
 
@@ -92,6 +115,8 @@ local function mapControl(event)
         scaleRatio = (balls.y - markedY) / (minY - markedY) * 0.5
         balls.xScale = 1 - scaleRatio
         balls.yScale = 1 - scaleRatio
+        
+        ZoomMap((balls.y - markedY) / (minY - markedY))
     end
     
     -- Parse 3
@@ -127,11 +152,12 @@ function setMapFollowBalls(status)
 end
 
 local function zoomObject(object, scale)
-    object.xScale = object.xScale + scale;
-    object.yScale = object.yScale + scale;
+    object.xScale = scale;
+    object.yScale = scale;
     
 end
 
-local function ZoomMap(ratio)
-    
+function ZoomMap(ratio)
+    ratio = 1 - ratio * 0.3
+    zoomObject( treesGroup, ratio)
 end
