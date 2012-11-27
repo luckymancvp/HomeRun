@@ -16,7 +16,7 @@ function init()
  	ui = require ("game.ui")
  	data = require ("game.data")
         
-        map = require("map")
+     map = require("map")
  	
 end
 --start game 
@@ -25,6 +25,18 @@ function startGame()
 	ball.state = state.standing
 	data.remainBall = 10
 	throwBall()
+end
+
+--pause game
+
+function pauseGame()
+	
+end
+
+--resume game
+
+function resumeGame()
+	
 end
 -- nem bong 
 function throwBall()
