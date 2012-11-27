@@ -30,13 +30,15 @@ end
 --pause game
 
 function pauseGame()
-	
+	physics.pause()
+	ui.pauseGame()
 end
 
 --resume game
 
 function resumeGame()
-	
+	physics.start()
+	ui.resumeGame()
 end
 -- nem bong 
 function throwBall()
