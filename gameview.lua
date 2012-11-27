@@ -8,13 +8,14 @@ function new()
 	--> director.lua is NEVER modified, while only one line in main.lua changes, described in that file
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
-   local map = require "map"
+   local map = require "map".initGame()
 
 	require "game.controller".init()
 	local ui = require ("game.ui")
 	local uiview =ui.initUI()
     
-
+  localGroup:insert(map)
+  localGroup:insert(uiview)
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 	return localGroup

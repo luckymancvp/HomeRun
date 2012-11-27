@@ -44,7 +44,7 @@ end
 
 --goto main menu
 function  gotoMainMenu()
-	
+	director:changeScene ("mainMenu")
 end
 
 --retry game
