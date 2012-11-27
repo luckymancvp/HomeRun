@@ -13,7 +13,7 @@ local lineFadeTime = 250
 local endPoints = {}
 
 
-local pauseScreen 
+local pauseScreen,resultScreen 
 
 function initUI ()
 	local localGroup =  display.newGroup()
@@ -70,7 +70,7 @@ function initUI ()
 	arrayBall.x = 30
 	arrayBall.y = 20
 	localGroup:insert(arrayBall)
-	
+	--print(arrayBall.numChildren)
 	
 	local function startButtonPressed(event)
 		controller.startGame()
@@ -145,6 +145,19 @@ function updateRemainBall(n)
 	end
 end
 
+function resetRemainBall()
+	
+	while  arrayBall .numChildren >0 do
+		--print (arrayBall.numChildren)
+		arrayBall:remove (arrayBall.numChildren)
+	end
+	for i = 1 ,3 do
+		local ballimage = display.newImageRect("images/gameview_ball1.png", 20 , 20)
+		ballimage.x = (i-1)*22
+		arrayBall:insert(ballimage)
+	end
+	
+end
 
 ---------- touch to screen -----------
 function drawSlashLine(event)
@@ -183,9 +196,15 @@ function pauseGame()
 	 local screenCap = display.captureScreen(false) --dont save to album
      pauseScreen:insert(screenCap)
     
-     local bound = display.newRect( 10, 199, 480, 320 )
-     bound:setFillColor( 255, 1, 1, 1)		-- make 
+     local bound = display.newRect( 0, 0, 480, 320 )
+     bound:setFillColor( 1, 1, 1, 100)		-- make 
+    -- bound:setColor( 1, 1, 1, 255 )
      pauseScreen:insert(bound)
+     local function abc(event)
+     	return true
+     end
+     
+     bound:addEventListener("touch",abc)
      
      local function mainMenuButtonPressed(event)
 		if event.phase == "release" then
@@ -226,4 +245,94 @@ function resumeGame()
 	pauseScreen:removeSelf()
 	pauseScreen = nil
 
+end
+
+
+function gameResult(score,maxdt)
+	 resultScreen = display.newGroup()
+	 local screenCap = display.captureScreen(false) --dont save to album
+     resultScreen:insert(screenCap)
+    
+     local bound = display.newRect( 0, 0, 480, 320 )
+     bound:setFillColor( 1, 1, 1, 100)		-- make 
+    -- bound:setColor( 1, 1, 1, 255 )
+     resultScreen:insert(bound)
+     local function abc(event)
+     	return true
+     end
+     
+     bound:addEventListener("touch",abc)
+     
+     local function mainMenuButtonPressed(event)
+		if event.phase == "release" then
+			controller.gotoMainMenu()
+		end
+		return true
+	end
+	
+	local resultBg = display.newImageRect("images/gamescoreview.png", 305 , 239)
+	resultBg.x = 240
+	resultBg.y = 160
+	resultScreen:insert(resultBg)
+	
+	
+	local mainMenu = widget.newButton{
+		default = "images/gamescoreview_main.png",
+		over = "images/gamescoreview_main_down.png",
+		onEvent = mainMenuButtonPressed
+	}
+	mainMenu.x = 180; mainMenu.y = 250;
+	resultScreen:insert(mainMenu)
+	
+	local function retryButtonPressed(event)
+		--print (event.phase)
+		if event.phase == "release" then
+			controller.retryGame()
+			resultScreen:removeSelf()
+		end
+		return true
+	end
+	
+	local retryBtt = widget.newButton{
+		default = "images/gamescoreview_retry.png",
+		over = "images/gamescoreview_retry_down.png",
+		onEvent = retryButtonPressed
+	}
+	retryBtt.x = 310; retryBtt.y = 250;
+	resultScreen:insert(retryBtt)
+	
+	--label score and max distance
+	
+	local scLabel  = display.newText("SCORE", 240, 100, native.systemFont, 25)
+	scLabel:setTextColor(255, 255, 254)
+	scLabel:setReferencePoint(display.CenterReferencePoint);
+	scLabel.x = 240
+	scLabel.y = 120
+	scLabel.text = "SCORE"
+	resultScreen:insert(scLabel)
+	
+	local rsScore  = display.newText("11111", 240, 160, native.systemFont, 20)
+	rsScore:setTextColor(255, 255, 254)
+	rsScore:setReferencePoint(display.CenterReferencePoint);
+	rsScore.x = 240
+	rsScore.y = 150
+	rsScore.text = score
+	resultScreen:insert(rsScore)
+	
+	local maxDistanceLabel  = display.newText("Out", 240, 160, native.systemFont, 25)
+	maxDistanceLabel:setTextColor(255, 255, 254)
+	maxDistanceLabel:setReferencePoint(display.CenterReferencePoint);
+	maxDistanceLabel.x = 240
+	maxDistanceLabel.y = 180
+	maxDistanceLabel.text = "MAX DISTANCE"
+	resultScreen:insert(maxDistanceLabel)
+	
+	local maxDt  = display.newText("Out", 240, 160, native.systemFont, 20)
+	maxDt:setTextColor(255, 255, 254)
+	maxDt:setReferencePoint(display.CenterReferencePoint);
+	maxDt.x = 240
+	maxDt.y = 210
+	maxDt.text = maxdt.." FT"
+	resultScreen:insert(maxDt)
+    
 end
