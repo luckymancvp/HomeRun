@@ -143,9 +143,15 @@ function pauseGame()
 	 local screenCap = display.captureScreen(false) --dont save to album
      pauseScreen:insert(screenCap)
     
-     local bound = display.newRect( 10, 199, 480, 320 )
-     bound:setFillColor( 255, 1, 1, 1)		-- make 
+     local bound = display.newRect( 0, 0, 480, 320 )
+     bound:setFillColor( 1, 1, 1, 100)		-- make 
+    -- bound:setColor( 1, 1, 1, 255 )
      pauseScreen:insert(bound)
+     local function abc(event)
+     	return true
+     end
+     
+     bound:addEventListener("touch",abc)
      
      local function mainMenuButtonPressed(event)
 		if event.phase == "release" then
