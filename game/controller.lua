@@ -8,6 +8,7 @@ local state
 local ui 
 local data
 local map
+local _ratio = 5
 function init()
 	 ball = require ("game.ball").instance()
  	physics = require ("game.physics").instance()
@@ -52,8 +53,14 @@ function throwBall()
 	
 end
 --danh bong tai diem pointX,pointY  voi do lon luc 2 phuong x, y la forceX va forceY
-function hitBall(forceX,forceY,pointX,pointY)
-	 ball:applyForce(forceX, forceY,ball.x, ball.y )
+function hitBall(pointX,pointY)
+	local endP = ui.getEndPoint()
+
+	print(endP)
+	local forceX  = (pointX - endP[1].x)*_ratio
+	local forceY  = (pointY - endP[1].y)*_ratio
+		print("end point     "..forceX.."      "..forceY.."       "..endP[1].x)
+	 ball:applyForce(forceX, forceY,pointX, pointY )
          ball.state = state.flying
          
          

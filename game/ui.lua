@@ -6,7 +6,15 @@ local controller = require("game.controller")
 
 local ftLabel,scoreLabel,comboLabel,outLabel
 local arrayBall
+
+local maxPoints = 5
+local lineThickness = 20
+local lineFadeTime = 250
+local endPoints = {}
+
+
 local pauseScreen 
+
 function initUI ()
 	local localGroup =  display.newGroup()
 	pauseScreen= nil
@@ -38,6 +46,7 @@ function initUI ()
 	outLabel:setReferencePoint(display.CenterReferencePoint);
 	outLabel.text = ""
 	localGroup:insert(outLabel)
+	Runtime:addEventListener("touch", drawSlashLine)
 	
 	
 	function ftLabel:timer(event)
@@ -136,6 +145,36 @@ function updateRemainBall(n)
 	end
 end
 
+
+---------- touch to screen -----------
+function drawSlashLine(event)
+
+	print ("event      "..event.x.."      "..event.y)
+	-- Insert a new point into the front of the array
+	
+	table.insert(endPoints, 1, {x = event.x, y = event.y, line= nil})
+
+	-- Remove any excessed points
+	if(#endPoints > maxPoints) then
+		table.remove(endPoints)
+	end
+	
+	for i,v in ipairs(endPoints) do
+		local line = display.newLine(v.x, v.y, event.x, event.y)
+		line.width = lineThickness
+		transition.to(line, {time = lineFadeTime, alpha = 0, width = 0, onComplete = function(event) line:removeSelf() isTouch = false end})
+	end
+
+	if(event.phase == "ended") then
+		while(#endPoints > 0) do
+			table.remove(endPoints)
+		end
+	end
+	
+end
+function getEndPoint()
+	return endPoints
+
 --create pause screen
 
 function pauseGame()
@@ -188,6 +227,8 @@ end
 
 --resume game remove pause screen
 function resumeGame()
+
 	pauseScreen:removeSelf()
 	pauseScreen = nil
+
 end

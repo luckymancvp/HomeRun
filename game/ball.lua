@@ -14,7 +14,7 @@ end
 
 local function onTouch(event)
 	print (event.phase)
-	
+	print("jsdhfkdsjfkjdfk")
 	local physics = require("game.physics").instance()
 	local ball = event.target
 	--if event.phase == "began" then
@@ -22,7 +22,7 @@ local function onTouch(event)
 		if ball.state == state.throwing then
 			--danh bong khi bong duoc nem
 			print "danh cai nao"
-			controller.hitBall(200,-100,ball.x,ball.y)
+			controller.hitBall(event.x,event.y)
 			--ball:applyForce( 200, -100, ball.x, ball.y )
 			ball.state = state.flying
 		else
