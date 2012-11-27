@@ -8,6 +8,7 @@ local state
 local ui 
 local data
 local map
+local _ratio = 15
 function init()
 	 ball = require ("game.ball").instance()
  	physics = require ("game.physics").instance()
@@ -23,19 +24,33 @@ end
 function startGame()
 	ball.state = state.standing
 	data.remainBall = 10
+	ui.resetRemainBall()
 	throwBall()
 end
 
 --pause game
 
 function pauseGame()
-	
+	physics.pause()
+	ui.pauseGame()
 end
 
 --resume game
 
 function resumeGame()
+	physics.start()
+	ui.resumeGame()
+end
+
+--goto main menu
+function  gotoMainMenu()
 	
+end
+
+--retry game
+
+function retryGame()
+	startGame()
 end
 -- nem bong 
 function throwBall()
@@ -50,8 +65,14 @@ function throwBall()
 	
 end
 --danh bong tai diem pointX,pointY  voi do lon luc 2 phuong x, y la forceX va forceY
-function hitBall(forceX,forceY,pointX,pointY)
-	 ball:applyForce(forceX, forceY,ball.x, ball.y )
+function hitBall(pointX,pointY)
+	local endP = ui.getEndPoint()
+
+	print(endP)
+	local forceX  = (pointX - endP[1].x)*_ratio
+	local forceY  = (pointY - endP[1].y)*_ratio
+		print("end point     "..forceX.."      "..forceY.."       "..endP[1].x)
+	 ball:applyForce(forceX, forceY,pointX, pointY )
          ball.state = state.flying
          
          
@@ -92,6 +113,9 @@ end
 function calculateScore()
 	
 	if data.remainBall<=0  then
+		
+		print ("ket thuc")
+		ui.gameResult(data.score,data.maxDistance)
 		return
 	end
 	if ball.x <= data.xOutLine then
@@ -111,7 +135,9 @@ function calculateScore()
 	-- bong hop le tinh diem
 	--tinh khoang cach
 		local ft = math.round( ball.x )
-		
+		if ft > data.maxDistance then
+			data.maxDistance = ft
+		end
 		--hien khoang cach dat duoc
 		ui.setFtText(ft)
 		--tang so combo
