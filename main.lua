@@ -9,7 +9,8 @@ require "CiderDebugger";--------------------------------------------------------
  local physics = require ("game.physics").instance()
  physics.start()
 
-require "map"
+local map = require "map"
+map.initGame()
 
 require "game.controller".init()
 local ui = require ("game.ui")
