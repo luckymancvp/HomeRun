@@ -1,7 +1,7 @@
 module(...,package.seeall)
 
 local widget = require( "widget" )
-local ui = require("ui")
+
 local controller = require("game.controller")
 
 local ftLabel,scoreLabel,comboLabel,outLabel
@@ -162,7 +162,7 @@ end
 ---------- touch to screen -----------
 function drawSlashLine(event)
 
-	print ("event      "..event.x.."      "..event.y)
+	--print ("event      "..event.x.."      "..event.y)
 	-- Insert a new point into the front of the array
 	
 	table.insert(endPoints, 1, {x = event.x, y = event.y, line= nil})
@@ -188,6 +188,7 @@ end
 function getEndPoint()
 	return endPoints
 end
+
 --create pause screen
 
 function pauseGame()
