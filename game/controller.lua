@@ -8,7 +8,7 @@ local state
 local ui 
 local data
 local map
-local _ratio = 5
+local _ratio = 15
 function init()
 	 ball = require ("game.ball").instance()
  	physics = require ("game.physics").instance()

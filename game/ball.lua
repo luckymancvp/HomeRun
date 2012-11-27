@@ -14,7 +14,7 @@ end
 
 local function onTouch(event)
 	print (event.phase)
-	print("jsdhfkdsjfkjdfk")
+	
 	local physics = require("game.physics").instance()
 	local ball = event.target
 	--if event.phase == "began" then

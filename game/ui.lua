@@ -13,7 +13,7 @@ local lineFadeTime = 250
 local endPoints = {}
 
 
-local pauseScreen 
+local pauseScreen,resultScreen 
 
 function initUI ()
 	local localGroup =  display.newGroup()
@@ -174,7 +174,7 @@ function drawSlashLine(event)
 end
 function getEndPoint()
 	return endPoints
-
+end
 --create pause screen
 
 function pauseGame()
@@ -231,4 +231,53 @@ function resumeGame()
 	pauseScreen:removeSelf()
 	pauseScreen = nil
 
+end
+
+
+function gameResult()
+	 resultScreen = display.newGroup()
+	 local screenCap = display.captureScreen(false) --dont save to album
+     resultScreen:insert(screenCap)
+    
+     local bound = display.newRect( 0, 0, 480, 320 )
+     bound:setFillColor( 1, 1, 1, 100)		-- make 
+    -- bound:setColor( 1, 1, 1, 255 )
+     resultScreen:insert(bound)
+     local function abc(event)
+     	return true
+     end
+     
+     bound:addEventListener("touch",abc)
+     
+     local function mainMenuButtonPressed(event)
+		if event.phase == "release" then
+			controller.resumeGame()
+		end
+		return true
+	end
+	
+	local mainMenu = widget.newButton{
+		default = "images/pauseview_main.png",
+		over = "images/pauseview_main_down.png",
+		onEvent = mainMenuButtonPressed
+	}
+	mainMenu.x = 240; mainMenu.y = 140;
+	resultScreen:insert(mainMenu)
+	
+	local function retryButtonPressed(event)
+		--print (event.phase)
+		if event.phase == "release" then
+			controller.resumeGame()
+		end
+		return true
+	end
+	
+	local retryBtt = widget.newButton{
+		default = "images/pauseview_resume.png",
+		over = "images/pauseview_resume_down.png",
+		onEvent = retryButtonPressed
+	}
+	retryBtt.x = 240; retryBtt.y = 200;
+	resultScreen:insert(retryBtt)
+    
 end
