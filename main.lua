@@ -1,4 +1,4 @@
---require "CiderDebugger";-----------------------------------------------------------------------------------------
+require "CiderDebugger";-----------------------------------------------------------------------------------------
 --
 -- main.lua
 --
@@ -24,7 +24,7 @@ local function main()
 	mainGroup:insert(director.directorView)
 	--> Adds the group from director
 	
-	director:changeScene("mainMenu")
+	director:changeScene("gameview")
 	--> Change the scene, no effects
 	
 	return true
