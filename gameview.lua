@@ -1,9 +1,10 @@
 
 module(..., package.seeall)
+ local physics = require ("game.physics").instance()
 local map = require "map"
 local ui = require ("game.ui")
 local controller = 	require "game.controller"
- local physics = require ("game.physics").instance()
+
 
 function new()
 	local localGroup = display.newGroup()
