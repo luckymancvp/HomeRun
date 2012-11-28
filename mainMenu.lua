@@ -20,7 +20,7 @@ backbutton.x = 160
 backbutton.y = 160
 localGroup:insert(backbutton)
 --> This places our "back" button
---[[
+
 local function startButtonPressed(event)
 		director:changeScene ("gameview")
 		return true
@@ -33,10 +33,10 @@ local function startButtonPressed(event)
 	}
 	start.x = 100; start.y = 200;
 	localGroup:insert(start)
-]]--
+
 local function pressBack (event)
 if event.phase == "ended" then
-director:changeScene ("gameview","downFlip")
+director:changeScene ("gameview")
 end
 end
 

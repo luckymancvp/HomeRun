@@ -19,14 +19,14 @@ function init()
  	ui = require ("game.ui")
  	data = require ("game.data")
         
-     map = require("map")
+    map = require("map")
  	
 end
 --start game 
 
 function startGame()
 	ball.state = state.standing
-	data.remainBall = 10
+	data.remainBall = 1
 	ui.resetRemainBall()
 	throwBall()
 end
@@ -47,6 +47,7 @@ end
 
 --goto main menu
 function  gotoMainMenu()
+	physics.stop()
 	director:changeScene ("mainMenu")
 end
 
@@ -75,12 +76,12 @@ function hitBall(pointX,pointY)
 	local forceX  = (pointX - endP[1].x)*_ratio
 	local forceY  = (pointY - endP[1].y)*_ratio
 	if math.abs(forceX)>data.MAXFORCEX then
-		forceX = data.MAXFORCEX*forceX/Math.abs(forceX)
-		forceY = forceY*data.MAXFORCEX/Math.abs(forceX)
+		forceX = data.MAXFORCEX*forceX/math.abs(forceX)
+		forceY = forceY*data.MAXFORCEX/math.abs(forceX)
 	end
 	 if math.abs(forceY)>data.MAXFORCEY then
-		forceY = data.MAXFORCEY*forceY/Math.abs(forceY)
-		forceX = forceX*data.MAXFORCEY/Math.abs(forceY)
+		forceY = data.MAXFORCEY*forceY/math.abs(forceY)
+		forceX = forceX*data.MAXFORCEY/math.abs(forceY)
 	end
 	pointX = pointX + (ball.x -pointX) /3
 	pointY = pointY + (ball.y - pointY)/3
@@ -195,4 +196,4 @@ function update ()
 	end
 end
 
-Runtime:addEventListener("enterFrame",update)
+--Runtime:addEventListener("enterFrame",update)

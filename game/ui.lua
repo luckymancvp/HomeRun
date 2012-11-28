@@ -73,6 +73,8 @@ function initUI ()
 	--print(arrayBall.numChildren)
 	
 	local function startButtonPressed(event)
+		
+		--director:changeScene ("mainMenu")
 		controller.startGame()
 		event.target:removeSelf()
 		return true
@@ -83,7 +85,7 @@ function initUI ()
 		over = "images/title_start_game_down.png",
 		onPress = startButtonPressed
 	}
-	start.x = 100; start.y = 200;
+	start.x = 240; start.y = 200;
 	localGroup:insert(start)
 	
 	local function pauseButtonPressed(event)
@@ -96,7 +98,7 @@ function initUI ()
 		over = "images/gameview_pause_down.png",
 		onPress = pauseButtonPressed
 	}
-	pauseBtt.x = 400; pauseBtt.y = 200;
+	pauseBtt.x = 400; pauseBtt.y = 220;
 	localGroup:insert(pauseBtt)
 
 	local pauseBtt1 = widget.newButton{

@@ -1,6 +1,8 @@
 
 module(..., package.seeall)
-
+local map = require "map"
+local ui = require ("game.ui")
+local controller = 	require "game.controller"
 function new()
 	local localGroup = display.newGroup()
 	--> This is how we start every single file or "screen" in our folder, except for main.lua
@@ -8,13 +10,13 @@ function new()
 	--> director.lua is NEVER modified, while only one line in main.lua changes, described in that file
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
-   local map = require "map".initGame()
-
-	require "game.controller".init()
-	local ui = require ("game.ui")
-	local uiview =ui.initUI()
+  local mapview = map.initGame()
+  
+  local uiview =ui.initUI()
+   controller.init()
+	
     
-  localGroup:insert(map)
+  localGroup:insert(mapview)
   localGroup:insert(uiview)
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
