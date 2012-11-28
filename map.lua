@@ -43,14 +43,15 @@ local function createItem()
     
     itemDatas = {
         { image = "images/bar.png", x = 500},
-        { image = "images/bus.png", x = 600},
-        { image = "images/car1.png", x = 800},
-        { image = "images/car2.png", x = 1000},
+        { image = "images/bus.png", x = 700},
+        { image = "images/car1.png", x = 900},
+        { image = "images/car2.png", x = 1100},
     }
     
     for key, item in pairs(itemDatas) do
         local newItem = display.newImage(item["image"], item["x"], 320)
         newItem:setReferencePoint(display.BottomLeftReferencePoint)
+        newItem.y = 320
         itemsGroup:insert(newItem)
         print(newItem.y)
     end
