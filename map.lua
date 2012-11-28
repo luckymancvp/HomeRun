@@ -53,7 +53,6 @@ local function createItem()
         newItem:setReferencePoint(display.BottomLeftReferencePoint)
         newItem.y = 320
         itemsGroup:insert(newItem)
-        print(newItem.y)
     end
     
     
@@ -105,7 +104,6 @@ local function mapControl(event)
     -- Parse 2
     if (balls.y < markedY) and (balls.y >= minY) then
         -- start move background and scale ball
-        print("Enter parse 2")
         
         game.x = game.x + (previousX - balls.x)
         gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*2
@@ -123,7 +121,6 @@ local function mapControl(event)
     -- Parse 3
     if (balls.y < minY) then 
         -- keep balls in screen
-        print("Enter parse 3")
         game.x = game.x + (previousX - balls.x)
         game.y = minY - balls.y    -- keep balls in screen
         
