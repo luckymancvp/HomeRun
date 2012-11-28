@@ -16,31 +16,32 @@ localGroup:insert(background)
 --> This sets the background
 
 local backbutton = display.newImage ("images/title_start_game.png")
-backbutton.x = 100
+backbutton.x = 380
 backbutton.y = 200
 localGroup:insert(backbutton)
 --> This places our "back" button
---[[
+
 local function startButtonPressed(event)
-		director:changeScene ("gameview")
+		director:changeScene ("profileview")
 		return true
 	end
 	
 	local start = widget.newButton{
 		default = "images/title_start_game.png",
 		over = "images/title_start_game_down.png",
+		label = "User Profile", 
 		onPress = startButtonPressed
 	}
-	start.x = 100; start.y = 200;
+	start.x = 380; start.y = 250;
 	localGroup:insert(start)
-]]--
-local function pressBack (event)
-if event.phase == "ended" then
-director:changeScene ("gameview")
-end
-end
 
-backbutton:addEventListener ("touch", pressBack)
+	local function pressBack (event)
+		if event.phase == "ended" then
+			director:changeScene ("gameview")
+		end
+	end
+
+	backbutton:addEventListener ("touch", pressBack)
 --> This adds the function and listener to the "back" button
 
 ------------------------------------------------------------------------------
