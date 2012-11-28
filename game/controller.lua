@@ -35,6 +35,7 @@ end
 
 function pauseGame()
 	physics.pause()
+	
 	ui.pauseGame()
 end
 
@@ -42,12 +43,15 @@ end
 
 function resumeGame()
 	physics.start()
+	
 	ui.resumeGame()
 end
 
 --goto main menu
 function  gotoMainMenu()
+	map.setMapFollowBalls(false)
 	physics.stop()
+	
 	require ("game.ball").destroyBall()
 	
 	director:changeScene ("mainMenu")

@@ -11,7 +11,7 @@ end
 local function createGameview()
     --- add background
     gameviewGroup = display.newGroup()
-    for i = 0, 50, 1 do
+    for i = -10, 50, 1 do
         local gameview = display.newImage("images/gameview.png", i*512, -190)
         gameviewGroup:insert(gameview)
     end
@@ -26,7 +26,7 @@ end
 local function createTrees()
     --- add tree
     treesGroup = display.newGroup()
-    for i = 0, 50, 1 do
+    for i = -10, 50, 1 do
          local tree = display.newImage("images/trees.png", 512 * i, 0)
          treesGroup:insert(tree)
     end
@@ -71,7 +71,7 @@ function initGame()
     createItem()
     
     
-    local balls    = require ("game.ball").instance()
+    balls  = require ("game.ball").instance()
     game:insert(balls)
     
     return game
@@ -80,7 +80,7 @@ end
 
 ------------------------- Map follow balls Control function --------------------
 
-local balls    = require ("game.ball").instance() 
+--local balls    = require ("game.ball").instance() 
 
 local markedY = 70   -- Start zoom effect
 local minY    = 25   -- keep ball be not smaller when its y axis < minY

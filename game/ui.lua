@@ -198,7 +198,7 @@ function pauseGame()
 	 local screenCap = display.captureScreen(false) --dont save to album
      pauseScreen:insert(screenCap)
     
-     local bound = display.newRect( 0, 0, 480, 320 )
+     local bound = display.newRect( -50, 0, 600, 500 )
      bound:setFillColor( 1, 1, 1, 100)		-- make 
     -- bound:setColor( 1, 1, 1, 255 )
      pauseScreen:insert(bound)
@@ -255,7 +255,7 @@ function gameResult(score,maxdt)
 	 local screenCap = display.captureScreen(false) --dont save to album
      resultScreen:insert(screenCap)
     
-     local bound = display.newRect( 0, 0, 480, 320 )
+     local bound = display.newRect( -50, 0, 600, 500 )
      bound:setFillColor( 1, 1, 1, 100)		-- make 
     -- bound:setColor( 1, 1, 1, 255 )
      resultScreen:insert(bound)
