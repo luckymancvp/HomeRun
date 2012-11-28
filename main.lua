@@ -9,7 +9,8 @@ local director = require ("director")
 --> Imports director
 
 
-
+ local physics = require ("game.physics").instance()
+ physics.start()
 
 
 
