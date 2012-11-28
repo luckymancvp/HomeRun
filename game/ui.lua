@@ -109,7 +109,8 @@ function initUI ()
 	pauseBtt1.x = 100; pauseBtt1.y = 300;
 	localGroup:insert(pauseBtt1)
 
-	
+	controller.startGame()
+        
 	return localGroup
 end
 
