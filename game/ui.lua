@@ -98,7 +98,7 @@ function initUI ()
 		over = "images/gameview_pause_down.png",
 		onPress = pauseButtonPressed
 	}
-	pauseBtt.x = 400; pauseBtt.y = 220;
+	pauseBtt.x = 410; pauseBtt.y = 280;
 	localGroup:insert(pauseBtt)
 
 	local pauseBtt1 = widget.newButton{

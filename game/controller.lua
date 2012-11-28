@@ -26,7 +26,7 @@ end
 
 function startGame()
 	ball.state = state.standing
-	data.remainBall = 1
+	data.remainBall = 10
 	ui.resetRemainBall()
 	throwBall()
 end
@@ -48,6 +48,8 @@ end
 --goto main menu
 function  gotoMainMenu()
 	physics.stop()
+	require ("game.ball").destroyBall()
+	
 	director:changeScene ("mainMenu")
 end
 

@@ -16,11 +16,11 @@ localGroup:insert(background)
 --> This sets the background
 
 local backbutton = display.newImage ("images/title_start_game.png")
-backbutton.x = 160
-backbutton.y = 160
+backbutton.x = 100
+backbutton.y = 200
 localGroup:insert(backbutton)
 --> This places our "back" button
-
+--[[
 local function startButtonPressed(event)
 		director:changeScene ("gameview")
 		return true
@@ -33,7 +33,7 @@ local function startButtonPressed(event)
 	}
 	start.x = 100; start.y = 200;
 	localGroup:insert(start)
-
+]]--
 local function pressBack (event)
 if event.phase == "ended" then
 director:changeScene ("gameview")
