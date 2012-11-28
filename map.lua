@@ -80,6 +80,7 @@ function initGame()
 end
 
 function getInstance()
+    -- return instance of game object
     return game
 end
 
