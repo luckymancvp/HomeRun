@@ -13,11 +13,11 @@ function new()
 	--> director.lua is NEVER modified, while only one line in main.lua changes, described in that file
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
- physics.start()
+  physics.start()
   local mapview = map.initGame()
   
   local uiview =ui.initUI()
-   controller.init()
+  controller.init()
 	
     
   localGroup:insert(mapview)

@@ -105,7 +105,8 @@ function eatFlyBall()
 end
 
 function collideGround()
-        map.setMapFollowBalls(false)
+    map.setMapFollowBalls(false)
+    
 	if ball.state == state.throwing then
 	-- danh truot
 		print "collideGround : danh truot"
@@ -153,6 +154,10 @@ function calculateScore()
 		ui.updateRemainBall(data.remainBall)
 	else
 	-- bong hop le tinh diem
+	--cam co
+	
+	local flag = require ("game.flag").newFlag(ball.x,ball.y)
+	--insert(flag)
 	--tinh khoang cach
 		local ft = math.round( ball.x )
 		if ft > data.maxDistance then
