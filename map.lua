@@ -1,6 +1,7 @@
 module (...,package.seeall)
 
 local widget = require( "widget" )
+local game   = nil
 
 display.setStatusBar(display.HiddenStatusBar)
 
@@ -78,6 +79,10 @@ function initGame()
     
 end
 
+function getInstance()
+    return game
+end
+
 ------------------------- Map follow balls Control function --------------------
 
 --local balls    = require ("game.ball").instance() 
@@ -106,7 +111,7 @@ local function mapControl(event)
         -- start move background and scale ball
         
         game.x = game.x + (previousX - balls.x)
-        gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*2
+        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
 
         gameviewGroup.y = (markedY - balls.y) / (markedY - minY) * bgY - game.y
         
@@ -124,7 +129,7 @@ local function mapControl(event)
         game.x = game.x + (previousX - balls.x)
         game.y = minY - balls.y    -- keep balls in screen
         
-        gameviewGroup.x = gameviewGroup.x + (previousX - balls.x)*3
+        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
         gameviewGroup.y = bgY - game.y
     end  
     -- Update previous position of balls
