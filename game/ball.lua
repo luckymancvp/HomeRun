@@ -12,7 +12,10 @@ function  instance()
 	end
 	return ball
 end
-
+function destroyBall()
+	ball:removeSelf()
+	ball = nil
+end
 local function onTouch(event)
 	print (event.phase)
 	

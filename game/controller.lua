@@ -19,7 +19,7 @@ function init()
  	ui = require ("game.ui")
  	data = require ("game.data")
         
-     map = require("map")
+    map = require("map")
  	
 end
 --start game 
@@ -35,6 +35,7 @@ end
 
 function pauseGame()
 	physics.pause()
+	
 	ui.pauseGame()
 end
 
@@ -42,11 +43,17 @@ end
 
 function resumeGame()
 	physics.start()
+	
 	ui.resumeGame()
 end
 
 --goto main menu
 function  gotoMainMenu()
+	map.setMapFollowBalls(false)
+	physics.stop()
+	
+	require ("game.ball").destroyBall()
+	
 	director:changeScene ("mainMenu")
 end
 
@@ -195,4 +202,4 @@ function update ()
 	end
 end
 
-Runtime:addEventListener("enterFrame",update)
+--Runtime:addEventListener("enterFrame",update)

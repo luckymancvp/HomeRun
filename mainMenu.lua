@@ -16,8 +16,8 @@ localGroup:insert(background)
 --> This sets the background
 
 local backbutton = display.newImage ("images/title_start_game.png")
-backbutton.x = 160
-backbutton.y = 160
+backbutton.x = 100
+backbutton.y = 200
 localGroup:insert(backbutton)
 --> This places our "back" button
 --[[

@@ -1,5 +1,10 @@
 
 module(..., package.seeall)
+ local physics = require ("game.physics").instance()
+local map = require "map"
+local ui = require ("game.ui")
+local controller = 	require "game.controller"
+
 
 function new()
 	local localGroup = display.newGroup()
@@ -8,13 +13,14 @@ function new()
 	--> director.lua is NEVER modified, while only one line in main.lua changes, described in that file
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
-   local map = require "map".initGame()
-
-	require "game.controller".init()
-	local ui = require ("game.ui")
-	local uiview =ui.initUI()
+ physics.start()
+  local mapview = map.initGame()
+  
+  local uiview =ui.initUI()
+   controller.init()
+	
     
-  localGroup:insert(map)
+  localGroup:insert(mapview)
   localGroup:insert(uiview)
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------

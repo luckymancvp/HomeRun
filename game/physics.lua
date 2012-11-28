@@ -6,7 +6,7 @@ function instance()
   if physics == nil then
   	print ("physics")
      physics = require("physics")
-     physics.setDrawMode( "hybrid" )
+     --physics.setDrawMode( "hybrid" )
      return physics
   else 
   	 return physics

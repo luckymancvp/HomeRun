@@ -73,6 +73,8 @@ function initUI ()
 	--print(arrayBall.numChildren)
 	
 	local function startButtonPressed(event)
+		
+		--director:changeScene ("mainMenu")
 		controller.startGame()
 		event.target:removeSelf()
 		return true
@@ -83,7 +85,7 @@ function initUI ()
 		over = "images/title_start_game_down.png",
 		onPress = startButtonPressed
 	}
-	start.x = 100; start.y = 200;
+	start.x = 240; start.y = 200;
 	localGroup:insert(start)
 	
 	local function pauseButtonPressed(event)
@@ -96,7 +98,7 @@ function initUI ()
 		over = "images/gameview_pause_down.png",
 		onPress = pauseButtonPressed
 	}
-	pauseBtt.x = 400; pauseBtt.y = 200;
+	pauseBtt.x = 410; pauseBtt.y = 280;
 	localGroup:insert(pauseBtt)
 
 	local pauseBtt1 = widget.newButton{
@@ -196,7 +198,7 @@ function pauseGame()
 	 local screenCap = display.captureScreen(false) --dont save to album
      pauseScreen:insert(screenCap)
     
-     local bound = display.newRect( 0, 0, 480, 320 )
+     local bound = display.newRect( -50, 0, 600, 500 )
      bound:setFillColor( 1, 1, 1, 100)		-- make 
     -- bound:setColor( 1, 1, 1, 255 )
      pauseScreen:insert(bound)
@@ -208,7 +210,7 @@ function pauseGame()
      
      local function mainMenuButtonPressed(event)
 		if event.phase == "release" then
-			controller.resumeGame()
+			controller.gotoMainMenu()
 		end
 		return true
 	end
@@ -253,7 +255,7 @@ function gameResult(score,maxdt)
 	 local screenCap = display.captureScreen(false) --dont save to album
      resultScreen:insert(screenCap)
     
-     local bound = display.newRect( 0, 0, 480, 320 )
+     local bound = display.newRect( -50, 0, 600, 500 )
      bound:setFillColor( 1, 1, 1, 100)		-- make 
     -- bound:setColor( 1, 1, 1, 255 )
      resultScreen:insert(bound)
