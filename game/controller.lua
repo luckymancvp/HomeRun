@@ -75,12 +75,12 @@ function hitBall(pointX,pointY)
 	local forceX  = (pointX - endP[1].x)*_ratio
 	local forceY  = (pointY - endP[1].y)*_ratio
 	if math.abs(forceX)>data.MAXFORCEX then
-		forceX = data.MAXFORCEX*forceX/Math.abs(forceX)
-		forceY = forceY*data.MAXFORCEX/Math.abs(forceX)
+		forceX = data.MAXFORCEX*forceX/math.abs(forceX)
+		forceY = forceY*data.MAXFORCEX/math.abs(forceX)
 	end
 	 if math.abs(forceY)>data.MAXFORCEY then
-		forceY = data.MAXFORCEY*forceY/Math.abs(forceY)
-		forceX = forceX*data.MAXFORCEY/Math.abs(forceY)
+		forceY = data.MAXFORCEY*forceY/math.abs(forceY)
+		forceX = forceX*data.MAXFORCEY/math.abs(forceY)
 	end
 	pointX = pointX + (ball.x -pointX) /3
 	pointY = pointY + (ball.y - pointY)/3

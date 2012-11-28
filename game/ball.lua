@@ -3,6 +3,7 @@ module(...,package.seeall)
 local ball = nil
 local state = require("game.ballState")
 local controller = require ("game.controller")
+local effect = require ("game.ballEffect")
 
 function  instance()
 	print ("ball instance")
@@ -22,6 +23,12 @@ local function onTouch(event)
 		if ball.state == state.throwing then
 			--danh bong khi bong duoc nem
 			print "danh cai nao"
+			for i = 1,10 do 
+				local _ef = effect.newEffect(36*(i-1))
+				_ef.x = ball.x
+				_ef.y = ball.y
+				_ef:startAnim()
+			end
 			controller.hitBall(event.x,event.y)
 			--ball:applyForce( 200, -100, ball.x, ball.y )
 			ball.state = state.flying
