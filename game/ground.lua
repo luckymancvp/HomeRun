@@ -11,7 +11,7 @@ function createGround()
   
   
   borderCollisionFilter = { categoryBits = 1, maskBits = 14 } -- collides with (8 & 4 & 2) only
-  borderBodyElement = { friction=1, bounce=1.1, filter=borderCollisionFilter }
+  borderBodyElement = { friction=1, bounce=.1, filter=borderCollisionFilter }
   local borderBottom = display.newRect( -960, 318, 7000, 2 )
  -- borderBottom:setFillColor( 1, 0, 1, 1)		-- make 
   borderBottom.name = "ground"  
