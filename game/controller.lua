@@ -20,6 +20,7 @@ function init()
  	data = require ("game.data")
         
     map = require("map")
+    _ratio = data.BALL_POWER_RATIO
  	
 end
 --start game 
@@ -71,7 +72,7 @@ function throwBall()
     
 	ball.bodyType = "static"
 	ball.x = 490
-        ball.y = 50
+      ball.y = 50
         ball.bodyType = "dynamic"
         ball:applyForce(-80, 0,ball.x, ball.y )
 	ball.state = state.throwing
@@ -84,13 +85,17 @@ function hitBall(pointX,pointY)
 	print(endP)
 	local forceX  = (pointX - endP[1].x)*_ratio
 	local forceY  = (pointY - endP[1].y)*_ratio
-	if math.abs(forceX)>data.MAXFORCEX then
+	if forceX>data.MAXFORCEX then
 		forceX = data.MAXFORCEX*forceX/math.abs(forceX)
 		forceY = forceY*data.MAXFORCEX/math.abs(forceX)
+	elseif forceX < data.MINFORCEX then
+		forceX = data.MINFORCEX*forceX/math.abs(forceX)
+		forceY = forceY*data.MINFORCEX/math.abs(forceX)
 	end
 	 if math.abs(forceY)>data.MAXFORCEY then
 		forceY = data.MAXFORCEY*forceY/math.abs(forceY)
 		forceX = forceX*data.MAXFORCEY/math.abs(forceY)
+	
 	end
 	pointX = pointX + (ball.x -pointX) /3
 	pointY = pointY + (ball.y - pointY)/3

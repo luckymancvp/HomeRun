@@ -4,6 +4,7 @@ local ball = nil
 local state = require("game.ballState")
 local controller = require ("game.controller")
 local effect = require ("game.ballEffect")
+local data = require("game.data")
 
 function  instance()
 	print ("ball instance")
@@ -71,7 +72,7 @@ function createBall()
   local ball = display.newImageRect("images/gameview_ball1.png", 30 , 30)
   ball.name = "ball"
   ball.state = state.none
-  ball.follow = display.newImageRect("images/gameview_ball1.png", 45 , 45)
+  ball.follow = display.newImageRect("images/gameview_ball1.png",  data.BALL_FOLLOW_RECT,data.BALL_FOLLOW_RECT)
   ball.follow.alpha = 0.01
    
   borderCollisionFilter = { categoryBits = 2, maskBits = 15 } -- collides with (8 & 4 & 2 & 1) only

@@ -8,7 +8,7 @@ local ftLabel,scoreLabel,comboLabel,outLabel
 local arrayBall
 
 local maxPoints = 5
-local lineThickness = 20
+local lineThickness = 10
 local lineFadeTime = 250
 local endPoints = {}
 
@@ -175,9 +175,12 @@ function drawSlashLine(event)
 	end
 	
 	for i,v in ipairs(endPoints) do
-		local line = display.newLine(v.x, v.y, event.x, event.y)
+		--local line = display.newLine(v.x, v.y, event.x, event.y)
+		if i<table.getn(endPoints) then
+	local line = display.newLine(v.x, v.y, endPoints[i+1].x, endPoints[i+1].y)
 		line.width = lineThickness
 		transition.to(line, {time = lineFadeTime, alpha = 0, width = 0, onComplete = function(event) line:removeSelf() isTouch = false end})
+	end
 	end
 
 	if(event.phase == "ended") then
