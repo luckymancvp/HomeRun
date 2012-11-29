@@ -100,6 +100,7 @@ local function mapControl(event)
     -- Parse 1
     if (balls.y < 320) and (balls.y >= markedY) then
         -- Let ball move itself
+        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
         -- Check bound
         if ( balls.x >= boundRightX) then
             game.x = game.x + (previousX - balls.x)
@@ -111,7 +112,7 @@ local function mapControl(event)
         -- start move background and scale ball
         
         game.x = game.x + (previousX - balls.x)
-        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
+        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x) - 0.1
 
         gameviewGroup.y = (markedY - balls.y) / (markedY - minY) * bgY - game.y
         
@@ -129,7 +130,7 @@ local function mapControl(event)
         game.x = game.x + (previousX - balls.x)
         game.y = minY - balls.y    -- keep balls in screen
         
-        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
+        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x) - 0.1
         gameviewGroup.y = bgY - game.y
     end  
     -- Update previous position of balls
@@ -148,6 +149,7 @@ end
 
 function setMapFollowBalls(status)
     if (status == true) then
+        previousX = balls.x
         Runtime:addEventListener("enterFrame",mapControl)
     else
         Runtime:removeEventListener("enterFrame", mapControl)
