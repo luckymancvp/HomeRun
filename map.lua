@@ -32,7 +32,7 @@ local function createTrees()
          treesGroup:insert(tree)
     end
     
-    treesGroup:setReferencePoint(display.BottomLeftReferencePoint)
+    treesGroup:setReferencePoint(display.BottomCenterReferencePoint)
     game:insert(treesGroup)
     treesGroup.y = 320
     
@@ -101,7 +101,7 @@ local function mapControl(event)
     if (balls.y < 320) and (balls.y >= markedY) then
         -- Let ball move itself
         -- Check bound
-        if ( balls.x >= boundRightX) then
+        if ( balls.x  >= boundRightX) then
             game.x = game.x + (previousX - balls.x)
             gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
         end
@@ -165,6 +165,6 @@ local function zoomObject(object, scale)
 end
 
 function ZoomMap(ratio)
-    ratio = 1 - ratio * 0.3
-    --zoomObject( treesGroup, ratio)
+    ratio = 1 - ratio * 0.5
+    zoomObject( treesGroup, ratio)
 end
