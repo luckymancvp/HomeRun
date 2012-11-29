@@ -33,9 +33,9 @@ local function createTrees()
     end
     
     treesGroup:setReferencePoint(display.BottomLeftReferencePoint)
+    game:insert(treesGroup)
     treesGroup.y = 320
     
-    game:insert(treesGroup)
 end
 
 local function createItem()
@@ -69,7 +69,7 @@ function initGame()
     
     createGameview()
     createTrees()
-    createItem()
+    --createItem()
     
     
     balls  = require ("game.ball").instance()
@@ -88,7 +88,7 @@ end
 --local balls    = require ("game.ball").instance() 
 
 local markedY = 70   -- Start zoom effect
-local minY    = 25   -- keep ball be not smaller when its y axis < minY
+local minY    = 35   -- keep ball be not smaller when its y axis < minY
 
 local bgY     = 30   -- distance offset of background
 
@@ -132,6 +132,8 @@ local function mapControl(event)
         
         gameviewGroup.x = gameviewGroup.x - (previousX - balls.x) - 0.1
         gameviewGroup.y = bgY - game.y
+        
+        treesGroup.y = 320 - game.y
     end  
     -- Update previous position of balls
     previousX = balls.x
@@ -143,8 +145,8 @@ local isFollowBalls = false -- Map state
 
 function resetMap()
     -- Reset map to start position
-    game.x = 0; gameviewGroup.x = 0;
-    game.y = 0; gameviewGroup.y = 0;
+    game.x = 0; gameviewGroup.x = 0; treesGroup.x = 0;
+    game.y = 0; gameviewGroup.y = 0; treesGroup.y = 320;
 end
 
 function setMapFollowBalls(status)
@@ -164,5 +166,5 @@ end
 
 function ZoomMap(ratio)
     ratio = 1 - ratio * 0.3
-    zoomObject( treesGroup, ratio)
+    --zoomObject( treesGroup, ratio)
 end
