@@ -100,10 +100,10 @@ local function mapControl(event)
     -- Parse 1
     if (balls.y < 320) and (balls.y >= markedY) then
         -- Let ball move itself
-        gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
         -- Check bound
         if ( balls.x >= boundRightX) then
             game.x = game.x + (previousX - balls.x)
+            gameviewGroup.x = gameviewGroup.x - (previousX - balls.x)
         end
     end
     

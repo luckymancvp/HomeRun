@@ -30,9 +30,9 @@ function new()
   localGroup:insert(uiview)
   
 
-	controller.startGame()
+	--controller.startGame()
         
-        Runtime:addEventListener("enterFrame",update)
+      --  Runtime:addEventListener("enterFrame",update)
         
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------

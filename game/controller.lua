@@ -27,6 +27,9 @@ end
 function startGame()
 	ball.state = state.standing
 	data.remainBall = 10
+	data.currentCombo= 0
+	data.score=0
+	data.maxDistance = 0
 	ui.resetRemainBall()
 	throwBall()
 end
@@ -157,7 +160,7 @@ function calculateScore()
 	--cam co
 	
 	local flag = require ("game.flag").newFlag(ball.x,ball.y)
-	--insert(flag)
+	map.getInstance():insert(flag)
 	--tinh khoang cach
 		local ft = math.round( ball.x )
 		if ft > data.maxDistance then
